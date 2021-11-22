@@ -1,11 +1,10 @@
 import React from "react";
-import { DataFetching } from "./components/DataFetching";
+import { Home } from "./pages/Home";
 
 export function App() {
   return (
     <div className="container-lg bg-warning">
-        <DataFetching/>
+      <Home />
     </div>
   );
 }
-
