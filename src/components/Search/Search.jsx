@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import { HeroCard } from "../HeroCard/";
 
 export function Search() {
   const accessToken = 6728050277235129;
@@ -15,7 +16,6 @@ export function Search() {
       `https://superheroapi.com/api.php/${accessToken}/search/${herosearch.current.value}`
     );
     setIsLoading(false);
-    // console.log(res.data.error);
     if (res.data.results) {
       setResults(res.data.results);
     } else {
@@ -25,7 +25,7 @@ export function Search() {
 
   return (
     <>
-      <div className="p-2">
+      <div className="p-2 ">
         <input
           className="me-2"
           type="text"
@@ -43,11 +43,15 @@ export function Search() {
           <p>Searching...</p>
         ) : results ? (
           results.length > 0 ? (
-            <ul>
-              {results.map((element) => (
-                <li key={element.id}>{element.name}</li>
-              ))}
-            </ul>
+            <div className="container-lg">
+              <div className="row">
+                {results.map((hero) => (
+                  <div className="col-12 col-md-4 col-lg-4">
+                    <HeroCard hero={hero} />
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <p>No results</p>
           )
