@@ -1,14 +1,14 @@
 import React from "react";
 import { TeamCard } from "../TeamCard";
 
-// export function Team({ team, setTeam }) {
-//   function add(a, b) {
-//     return a + b;
-//   }
+export function Team({ team, setTeam }) {
+  //   function add(a, b) {
+  //     return a + b;
+  //   }
 
-//   //   const combat = team.map((hero) => hero.powerstats.combat).reduce(add);
-//   //no funciona aún
-//   console.log(combat);
+  //   //   const combat = team.map((hero) => hero.powerstats.combat).reduce(add);
+  //   //no funciona aún
+  //   console.log(combat);
 
   return (
     <div className="card text-center">
