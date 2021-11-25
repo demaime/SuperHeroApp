@@ -3,7 +3,7 @@ import { Home } from "./pages/Home";
 
 export function App() {
   return (
-    <div className="container-lg bg-warning">
+    <div className="container-lg">
       <Home />
     </div>
   );
