@@ -1,16 +1,32 @@
 import React from "react";
 import { TeamCard } from "../TeamCard";
 
-export function Team({ team }) {
+export function Team({ team, setTeam }) {
+  function add(a, b) {
+    return a + b;
+  }
+
+  const combat = team.map((hero) => hero.powerstats.combat).reduce(add);
+  //no funciona aún
+  console.log(combat);
+
   return (
     <div className="card text-center">
       <div className="card-header h3">YOUR TEAM</div>
       <div className="card-body row justify-content-center">
-        {team.map((hero) => (
-          <TeamCard key={hero.id} hero={hero} />
-        ))}
+        {team.length > 0 ? (
+          team.map((hero) => (
+            <TeamCard key={hero.id} hero={hero} team={team} setTeam={setTeam} />
+          ))
+        ) : (
+          <p className>
+            <em>It's empty!</em>
+          </p>
+        )}
       </div>
-      <div className="card-footer text-muted">Choose 6 more Heroes!</div>
+      <div className="card-footer text-muted">
+        You have chosen {team.length}/6 heroes!
+      </div>
       <div className="card text-center mt-2">
         <div className="card-header h4">TEAM POWERSTATS</div>
         <div className="card-body row justify-content-center">

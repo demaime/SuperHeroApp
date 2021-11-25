@@ -41,7 +41,7 @@ export function Home() {
 
   return (
     <>
-      <Team team={team} />
+      <Team team={team} setTeam={setTeam} />
       <div className="bg-light">
         <div className="p-2 container-sm d-flex justify-content-center">
           <input className="me-2" type="text" name="" id="" ref={herosearch} />
