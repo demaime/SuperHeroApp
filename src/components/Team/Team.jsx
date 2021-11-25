@@ -6,7 +6,7 @@ export function Team({ team, setTeam }) {
     return a + b;
   }
 
-  const combat = team.map((hero) => hero.powerstats.combat).reduce(add);
+  //   const combat = team.map((hero) => hero.powerstats.combat).reduce(add);
   //no funciona aún
   console.log(combat);
 
