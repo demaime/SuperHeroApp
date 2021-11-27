@@ -1,31 +1,44 @@
-import React, { useState } from "react";
-import { IoIosCloseCircle } from "react-icons/io";
+import React from "react";
+import { IoIosCloseCircle, IoMdInformationCircle } from "react-icons/io";
 
 export function TeamCard({ hero, team, setTeam }) {
-  const [actualTeam, setActualTeam] = useState(team);
-
   const removeHeroFromTeam = (hero) => {
-    setActualTeam(actualTeam.filter((item) => item.name !== hero.name));
-    console.log(actualTeam);
-    // setTeam(actualTeam);
+    setTeam(team.filter((item) => item.name !== hero.name));
+  };
+
+  const showHeroInfo = (hero) => {
+    console.log(hero.name);
   };
 
   return (
     <div
-      className="card col-md col-6 m-1"
+      className="container p-0 d-flex m-1 justify-content-center rounded"
       style={{
-        width: "18rem",
+        padding: "0",
+        width: "12rem",
+        height: "20rem",
         backgroundColor:
-          hero.biography.alignment === "good" ? "lightgreen" : "tomato",
+          hero.biography.alignment === "good" ? "palegreen" : "lightpink",
       }}
     >
-      <div className="card-body">
-        <p className="card-text">{hero.name}</p>
+      <div className="w-100 p-0">
+        <img src={hero.image.url} className="h-75 rounded w-100" alt="..." />
+        <p className="h6 mt-2">{hero.name}</p>
         <IoIosCloseCircle
           onClick={() => removeHeroFromTeam(hero)}
           style={{
-            height: "3rem",
-            width: "3rem",
+            margin: "0 0.5rem",
+            height: "1.5rem",
+            width: "1.5rem",
+            cursor: "pointer",
+          }}
+        />
+        <IoMdInformationCircle
+          onClick={() => showHeroInfo(hero)}
+          style={{
+            margin: "0 0.5rem",
+            height: "1.5rem",
+            width: "1.5rem",
             cursor: "pointer",
           }}
         />
