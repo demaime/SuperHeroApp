@@ -3,9 +3,17 @@ import { IoIosAddCircle } from "react-icons/io";
 
 export function ResultCard({ hero, addHeroToTeam }) {
   return (
-    <div className="card m-2 p-2">
+    <div
+      className="card m-2 p-20"
+      style={{
+        boxShadow:
+          hero.biography.alignment === "good"
+            ? "2px 2px 2px palegreen"
+            : "2px 2px 2px lightpink",
+      }}
+    >
       <div className="row p-2">
-        <div className="rounded-circle col">
+        <div className="rounded-circle7 col">
           <img
             style={{
               height: "5rem",

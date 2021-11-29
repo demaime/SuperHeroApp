@@ -1,7 +1,8 @@
 import React from "react";
 import { TeamCard } from "../TeamCard";
+import { HeroInfo } from "../HeroInfo";
 
-export function Team({ team, setTeam }) {
+export function Team({ team, removeHeroFromTeam, showHeroInfo, selectedHero }) {
   const combat = team
     .map((hero) => Number(hero.powerstats.combat) || 0)
     .reduce((a, b) => a + b, 0);
@@ -26,31 +27,51 @@ export function Team({ team, setTeam }) {
     .map((hero) => Number(hero.powerstats.strength) || 0)
     .reduce((a, b) => a + b, 0);
 
-    const height = team.map((hero) => hero.appearance.height) 
-      console.log(height)
-    };
+  const height = team.map((hero) =>
+    Number(hero.appearance.height[1].replace(/[^0-9.]+/g, ""))
+  );
+
+  const weight = team.map((hero) =>
+    Number(hero.appearance.weight[1].replace(/[^0-9.]+/g, ""))
+  );
+
+  const average = (array) =>
+    array.reduce((a, b) => a + b, 0) / array.length || 0;
+
+  function round(value, decimals) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+  }
 
   return (
     <div className="card text-center">
       <div className="card-header h3 bg-primary-custom">YOUR TEAM</div>
-      <div className="card-body row justify-content-center">
+      <div className="card-body justify-content-center d-flex flex-wrap">
         {team.length > 0 ? (
           team.map((hero) => (
-            <TeamCard key={hero.id} hero={hero} team={team} setTeam={setTeam} />
+            <TeamCard
+              key={hero.id}
+              hero={hero}
+              removeHeroFromTeam={removeHeroFromTeam}
+              showHeroInfo={showHeroInfo}
+            />
           ))
         ) : (
-          <p>
-            <em>It's empty!</em>
-            <p className="text-secondary-custom h6">
-              Start looking for your heroes below
-            </p>
-          </p>
+          <>
+            <p> </p>
+            <span>
+              <em>It's empty!</em>
+              <p className="text-secondary-custom h6">
+                Start looking for your heroes below
+              </p>
+            </span>
+          </>
         )}
       </div>
       <div className="card-footer text-muted">
         You have chosen{" "}
         <strong className="text-primary-custom">{team.length}/6</strong> heroes!
       </div>
+      <HeroInfo selectedHero={selectedHero} />
       <div className="card text-center mt-2">
         <div className="card-header h4 bg-primary-custom">TEAM POWERSTATS</div>
         <div className="card-body row justify-content-center">
@@ -91,8 +112,12 @@ export function Team({ team, setTeam }) {
             </div>
           </div>
           <div className="card-footer row bg-white">
-            <div className="col">Average Weight: 85kg.</div>
-            <div className="col">Average Height: 1.68 mts</div>
+            <div className="col">
+              Average Weight: {weight ? round(average(weight), 2) : "0"} kg.
+            </div>
+            <div className="col">
+              Average Height: {height ? round(average(height), 2) : "0"} cm.
+            </div>
           </div>
         </div>
       </div>

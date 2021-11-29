@@ -10,10 +10,11 @@ export function Home() {
   const herosearch = useRef();
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedHero, setSelectedHero] = useState();
 
   // useEffect(() => {
   //   POSIBLE OPCION PARA QUE "NO RESULTS" NO APAREZCA AL INICIO
-  // }, []);
+  // }, []);  
 
   async function search() {
     setIsLoading(true);
@@ -29,15 +30,59 @@ export function Home() {
   }
 
   const addHeroToTeam = (clickedHero) => {
+    if (team.length === 0) {
+      setTeam([...team, clickedHero]);
+      return;
+    }
+
     const heroInTeam = team.find((hero) => hero.id === clickedHero.id);
+
     if (heroInTeam) {
       console.log(heroInTeam.name, "is already in team");
       return;
     }
+
     if (team.length >= 6) return;
 
-    setTeam([...team, clickedHero]);
-    console.log("Your team is:", team);
+    if (clickedHero.biography.alignment === "good") {
+      const amountOfGoodHeroes = team.filter(
+        (hero) => hero.biography.alignment === "good"
+      ).length;
+      
+      if (amountOfGoodHeroes === 3) {
+        console.log(
+          "You have already selected 3 heroes with the same alignment"
+        );
+      } else {
+        setTeam([...team, clickedHero]);
+      }
+    } else {
+      const amountOfBadHeroes = team.filter(
+        (hero) => hero.biography.alignment === "bad"
+      ).length;
+     
+      if (amountOfBadHeroes === 3) {
+        console.log(
+          "You have already selected 3 heroes with the same alignment"
+        );
+      } else {
+        setTeam([...team, clickedHero]);
+      }
+    }
+  };
+
+  const removeHeroFromTeam = (clickedHero) => {
+    const heroTobeRemoved = team.find((hero) => hero.id === clickedHero.id);
+    setTeam(team.filter((item) => item.id !== heroTobeRemoved.id));
+    if (heroTobeRemoved.id === selectedHero.id) {
+      setSelectedHero(null);
+    }
+  };
+
+  const showHeroInfo = (clickedHero) => {
+    const heroInTeam = team.find((hero) => hero.id === clickedHero.id);
+    setSelectedHero(heroInTeam);
+  
   };
 
   return (
@@ -62,7 +107,13 @@ export function Home() {
           }}
         />
       </div>
-      <Team team={team} setTeam={setTeam} />
+      <Team
+        team={team}
+        setTeam={setTeam}
+        removeHeroFromTeam={removeHeroFromTeam}
+        showHeroInfo={showHeroInfo}
+        selectedHero={selectedHero}
+      />
       <div className="bg-light text-center">
         <p className="text-secondary-custom h5 text-center p-2">
           Find your heroes:
@@ -73,7 +124,6 @@ export function Home() {
             className="me-2"
             type="text"
             name=""
-            id=""
             ref={herosearch}
           />
 
@@ -90,5 +140,5 @@ export function Home() {
         )}
       </div>
     </>
-  );
+  )
 }
