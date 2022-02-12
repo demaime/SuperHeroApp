@@ -1,0 +1,34 @@
+.heroCardInTeam {
+  width: 6.5rem;
+  height: 12rem;
+}
+
+.imageHeroCard {
+  height: 60%;
+}
+
+.heroNameAndButtons {
+  height: 40%;
+  padding: 3px;
+}
+
+.heroNameInCard {
+  font-size: 12px;
+}
+
+@media (min-width: 1400px) {
+  .heroCardInTeam {
+    width: 9rem;
+    height: 18rem;
+  }
+  .imageHeroCard {
+    height: 70%;
+  }
+  .heroNameAndButtons {
+    height: 30%;
+    padding: 5px;
+  }
+  .heroNameInCard {
+    font-size: 15px;
+  }
+}

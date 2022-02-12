@@ -1,6 +1,6 @@
 :root {
-  --primary-custom: rgb(195, 175, 199);
-  --secondary-custom: rgb(82, 15, 71);
+  --primary-custom: rgb(0 126 154);
+  --secondary-custom: rgb(41 185 217);
 }
 
 .bg-primary-custom {

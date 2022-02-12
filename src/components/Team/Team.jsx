@@ -2,30 +2,46 @@ import React from "react";
 import { TeamCard } from "../TeamCard";
 import { HeroInfo } from "../HeroInfo";
 
+function getSumOfProperty(team, property) {
+  return team
+    .map((hero) => Number(hero.powerstats[property]) || 0)
+    .reduce((a, b) => a + b, 0);
+}
+
 export function Team({ team, removeHeroFromTeam, showHeroInfo, selectedHero }) {
-  const combat = team
-    .map((hero) => Number(hero.powerstats.combat) || 0)
-    .reduce((a, b) => a + b, 0);
+  const combat = getSumOfProperty(team, "combat");
+  const durability = getSumOfProperty(team, "durability");
+  const intelligence = getSumOfProperty(team, "intelligence");
+  const power = getSumOfProperty(team, "power");
+  const speed = getSumOfProperty(team, "speed");
+  const strength = getSumOfProperty(team, "strength");
 
-  const durability = team
-    .map((hero) => Number(hero.powerstats.durability) || 0)
-    .reduce((a, b) => a + b, 0);
-
-  const intelligence = team
-    .map((hero) => Number(hero.powerstats.intelligence) || 0)
-    .reduce((a, b) => a + b, 0);
-
-  const power = team
-    .map((hero) => Number(hero.powerstats.power) || 0)
-    .reduce((a, b) => a + b, 0);
-
-  const speed = team
-    .map((hero) => Number(hero.powerstats.speed) || 0)
-    .reduce((a, b) => a + b, 0);
-
-  const strength = team
-    .map((hero) => Number(hero.powerstats.strength) || 0)
-    .reduce((a, b) => a + b, 0);
+  const powerStats = [
+    {
+      name: "combat",
+      value: combat,
+    },
+    {
+      name: "durability",
+      value: durability,
+    },
+    {
+      name: "intelligence",
+      value: intelligence,
+    },
+    {
+      name: "power",
+      value: power,
+    },
+    {
+      name: "speed",
+      value: speed,
+    },
+    {
+      name: "strength",
+      value: strength,
+    },
+  ];
 
   const height = team.map((hero) =>
     Number(hero.appearance.height[1].replace(/[^0-9.]+/g, ""))
@@ -44,79 +60,69 @@ export function Team({ team, removeHeroFromTeam, showHeroInfo, selectedHero }) {
 
   return (
     <div className="card text-center">
-      <div className="card-header h3 bg-primary-custom">YOUR TEAM</div>
+      <div className="card-header h3 bg-primary-custom text-light">
+        YOUR TEAM
+      </div>
       <div className="card-body justify-content-center d-flex flex-wrap">
-        {team.length > 0 ? (
-          team.map((hero) => (
-            <TeamCard
-              key={hero.id}
-              hero={hero}
-              removeHeroFromTeam={removeHeroFromTeam}
-              showHeroInfo={showHeroInfo}
-            />
-          ))
-        ) : (
-          <>
-            <p> </p>
-            <span>
-              <em>It's empty!</em>
-              <p className="text-secondary-custom h6">
-                Start looking for your heroes below
-              </p>
-            </span>
-          </>
-        )}
-      </div>
-      <div className="card-footer text-muted">
-        You have chosen{" "}
-        <strong className="text-primary-custom">{team.length}/6</strong> heroes!
-      </div>
-      <HeroInfo selectedHero={selectedHero} />
-      <div className="card text-center mt-2">
-        <div className="card-header h4 bg-primary-custom">TEAM POWERSTATS</div>
-        <div className="card-body row justify-content-center">
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Combat</p>
-              <p className="card-text text-secondary-custom">{combat}</p>
-            </div>
+        <div className="w-75 ">
+          <div className="h-75 d-flex flex-wrap justify-content-center align-content-center">
+            {team.length > 0 ? (
+              team.map((hero) => (
+                <TeamCard
+                  key={hero.id}
+                  hero={hero}
+                  removeHeroFromTeam={removeHeroFromTeam}
+                  showHeroInfo={showHeroInfo}
+                />
+              ))
+            ) : (
+              <>
+                <span className="text-center">
+                  <em>It's empty!</em>
+                  <p className="text-secondary-custom h6">
+                    Start looking for your heroes below
+                  </p>
+                </span>
+              </>
+            )}
           </div>
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Durability</p>
-              <p className="card-text text-secondary-custom">{durability}</p>
+          <div className="d-flex flex-column h-25 justify-content-end">
+            <div className="text-muted">
+              You have chosen{" "}
+              <strong className="text-primary-custom">{team.length}/6</strong>{" "}
+              heroes!
             </div>
+            <HeroInfo selectedHero={selectedHero} />
           </div>
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Intelligence</p>
-              <p className="card-text text-secondary-custom">{intelligence}</p>
+        </div>
+        <div className="w-25">
+          <div className="card text-center">
+            <div className="card-header fw-bold bg-primary-custom text-light">
+              TEAM POWERSTATS
             </div>
-          </div>
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Power</p>
-              <p className="card-text text-secondary-custom">{power}</p>
-            </div>
-          </div>
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Speed</p>
-              <p className="card-text text-secondary-custom">{speed}</p>
-            </div>
-          </div>
-          <div className="card col-md col-6 m-1" style={{ width: "18rem" }}>
-            <div className="card-body h5">
-              <p className="card-text">Strength</p>
-              <p className="card-text text-secondary-custom">{strength}</p>
-            </div>
-          </div>
-          <div className="card-footer row bg-white">
-            <div className="col">
-              Average Weight: {weight ? round(average(weight), 2) : "0"} kg.
-            </div>
-            <div className="col">
-              Average Height: {height ? round(average(height), 2) : "0"} cm.
+            <div className="p-2 d-flex flex-column align-items-center">
+              {powerStats
+                .sort((a, b) => b.value - a.value)
+                .map((stat) => (
+                  <div
+                    key={stat.name}
+                    className="card m-1"
+                    style={{ width: "90%" }}
+                  >
+                    <div className="h6 p-1">
+                      <p className="m-0 text-capitalize">{stat.name}</p>
+                      <p className="m-0 ">{stat.value}</p>
+                    </div>
+                  </div>
+                ))}
+              <div className="bg-white">
+                <div className="p-1">
+                  Average Weight: {weight ? round(average(weight), 2) : "0"} kg.
+                </div>
+                <div className="p-1">
+                  Average Height: {height ? round(average(height), 2) : "0"} cm.
+                </div>
+              </div>
             </div>
           </div>
         </div>

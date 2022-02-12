@@ -19,6 +19,13 @@ export function HeroInfo({ selectedHero }) {
       </div>
     );
   } else {
-    return <div>Select any hero to see more info</div>;
+    return (
+      <div
+        className="containter bg-primary-custom text-decoration-none p-2 text-light"
+        style={{ marginRight: "16px" }}
+      >
+        Select any hero to see more info
+      </div>
+    );
   }
 }

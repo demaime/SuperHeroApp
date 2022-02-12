@@ -20,5 +20,5 @@ export function ResultsList({ results, addHeroToTeam }) {
         )
       ) : null}
     </div>
-  )
+  );
 }

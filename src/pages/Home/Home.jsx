@@ -12,10 +12,6 @@ export function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedHero, setSelectedHero] = useState();
 
-  // useEffect(() => {
-  //   POSIBLE OPCION PARA QUE "NO RESULTS" NO APAREZCA AL INICIO
-  // }, []);  
-
   async function search() {
     setIsLoading(true);
     let res = await axios.get(
@@ -48,7 +44,7 @@ export function Home() {
       const amountOfGoodHeroes = team.filter(
         (hero) => hero.biography.alignment === "good"
       ).length;
-      
+
       if (amountOfGoodHeroes === 3) {
         console.log(
           "You have already selected 3 heroes with the same alignment"
@@ -60,7 +56,7 @@ export function Home() {
       const amountOfBadHeroes = team.filter(
         (hero) => hero.biography.alignment === "bad"
       ).length;
-     
+
       if (amountOfBadHeroes === 3) {
         console.log(
           "You have already selected 3 heroes with the same alignment"
@@ -72,38 +68,36 @@ export function Home() {
   };
 
   const removeHeroFromTeam = (clickedHero) => {
+    console.log(clickedHero, team);
     const heroTobeRemoved = team.find((hero) => hero.id === clickedHero.id);
     setTeam(team.filter((item) => item.id !== heroTobeRemoved.id));
-    if (heroTobeRemoved.id === selectedHero.id) {
-      setSelectedHero(null);
-    }
+    setSelectedHero(null);
   };
 
   const showHeroInfo = (clickedHero) => {
     const heroInTeam = team.find((hero) => hero.id === clickedHero.id);
     setSelectedHero(heroInTeam);
-  
   };
 
   return (
     <>
       <div className="container-fluid d-flex justify-content-center">
         <img
-          src="logo.png"
+          src="logoHome.png"
           alt=""
           style={{
-            width: "6rem",
-            height: "5rem",
+            width: "7rem",
+            height: "6rem",
             margin: "0.5rem",
           }}
         />
         <img
-          src="title.png"
+          src="titleHome.png"
           alt=""
           style={{
-            width: "16rem",
-            height: "4rem",
-            margin: "1rem 0",
+            width: "20rem",
+            height: "6rem",
+            margin: "0.5rem 0",
           }}
         />
       </div>
@@ -140,5 +134,5 @@ export function Home() {
         )}
       </div>
     </>
-  )
+  );
 }

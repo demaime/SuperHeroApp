@@ -17,7 +17,7 @@ export function ResultCard({ hero, addHeroToTeam }) {
           <img
             style={{
               height: "5rem",
-              width: "4rem",
+              width: "5rem",
             }}
             className="rounded-circle col"
             src={hero.image.url}
